@@ -1,0 +1,43 @@
+{
+  "inbounds": [
+    {
+      "port": 443,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "14495163", 
+            "level": 0
+          }
+        ],
+        "decryption": "none",
+        "fallbacks": [
+          {
+            "dest": "127.0.0.1:8585" // Ipasa kay Nginx kapag hindi freenet payload
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/julpone-freenet"
+        },
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "quinonesdns.dpdns.org",
+          "certificates": [
+            {
+              "certificateFile": "/etc/letsencrypt/live/quinonesdns.dpdns.org/fullchain.pem",
+              "keyFile": "/etc/letsencrypt/live/quinonesdns.dpdns.org/privkey.pem"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom"
+    }
+  ]
+}
