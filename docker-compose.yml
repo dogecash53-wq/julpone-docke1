@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  # 1. XRAY SERVICE (Para sa Freenet Tunnel)
+  xray:
+    image: teddysun/xray:latest
+    container_name: julpone-xray
+    restart: always
+    network_mode: "host" # Ginagamit ang host network para mabilis ang hatak ng freenet
+    volumes:
+      - ./config/xray.json:/etc/xray/config.json
+      - /etc/letsencrypt:/etc/letsencrypt # Dito kukunin ang SSL certs ng domain mo
+
+  # 2. NGINX SERVICE (Para sa Custom Headers at Fallback)
+  nginx:
+    image: jonasal/nginx-certbot:latest # May kasama na itong headers-more filter module
+    container_name: julpone-nginx
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
